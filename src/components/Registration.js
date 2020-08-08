@@ -290,7 +290,7 @@ const Registration = () => {
             {emailError ? <Label color='red'>{emailError}</Label> : null}
           </span>
         </div>
-        <Form.Field>
+        {/* <Form.Field>
           <label>Phone Number (Optional)</label>
           <label>
             Please enter a phone number if you would like to receive text
@@ -301,7 +301,7 @@ const Registration = () => {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-        </Form.Field>
+        </Form.Field> */}
         <div>
           <span>
             {phoneNumberError ? (
