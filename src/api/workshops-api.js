@@ -13,7 +13,7 @@ export async function getWorkshops() {
 
 export async function getWorkshop(workshopId) {
   const response = await axios.get(
-    `https://${apiEndpoint}.execute-api.us-east-2.amazonaws.com/dev/workshops/${workshopId}`,
+    `https://${apiEndpoint}/workshops/${workshopId}`,
     {
       headers: {
         'Content-Type': 'application/json',

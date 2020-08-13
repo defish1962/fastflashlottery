@@ -16,7 +16,7 @@ const Enroll = (props) => {
   const fname = params.fname;
   const email = params.email;
   const wsId = params.wsId;
-  let env = 'sandbox';
+  let env = 'production';
   const history = useHistory();
   let htmlWorkshop = '';
 
@@ -53,7 +53,7 @@ const Enroll = (props) => {
 
   const createSelectedWorkshopHTML = async (wsId) => {
     const response = await axios.get(
-      `https://${apiEndpoint}.execute-api.us-east-2.amazonaws.com/dev/workshops/${wsId}`,
+      `https://${apiEndpoint}/workshops/${wsId}`,
       {
         headers: {
           'Content-Type': 'application/json',
