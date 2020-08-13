@@ -12,7 +12,7 @@ const RunLottery = () => {
   const lotteryNumber = '1';
   const lotteryMembers = Lottery(lotteryNumber);
   const lotteryWinners = [];
-  let classSize = 2;
+  let classSize = 5;
   let price = 0;
 
   const runLottery = () => {
@@ -52,6 +52,7 @@ const RunLottery = () => {
     html += '<p />You can enroll in this workshop by ';
     let enrollmentLink = `<a href=https://www.fastflashworkshops.com/Enroll?email=${email}&wsId=${lotteryNumber}&a=${price}&fname=${fname}>Clicking Here </a>`;
     html += enrollmentLink;
+    html += winnerEmailConfig.htmlDeadline;
     html += winnerEmailConfig.html;
     html += declineHtml;
     console.log(html);

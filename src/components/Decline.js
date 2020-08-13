@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 
 const Decline = (props) => {
   const params = QueryString.parse(props.location.search);
-  const fname = params.fname;
   const email = params.email;
   const wsId = params.wsId;
   const history = useHistory();
