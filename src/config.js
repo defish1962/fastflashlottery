@@ -1,6 +1,6 @@
 const apiId = 'yjer5tpylj';
 
-export const apiEndpoint = `https://${apiId}.execute-api.us-east-2.amazonaws.com/test`;
+export const apiEndpoint = `https://${apiId}.execute-api.us-east-2.amazonaws.com/dev`;
 
 export const authConfig = {
   domain: 'dev-5-kp86z1.auth0.com', // Auth0 domain
