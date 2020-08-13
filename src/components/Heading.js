@@ -8,7 +8,7 @@ class Heading extends Component {
       <div>
         <p />
         <Header as='h2' textAlign='center'>
-          Fast Flash Workshops Lottery
+          Fast Flash Workshops
         </Header>
         <Image src={logo} centered size='medium' />
       </div>

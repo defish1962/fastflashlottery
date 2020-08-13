@@ -15,6 +15,7 @@ import { emailConfig } from '../config';
 import { sendEmail } from '../api/email-api';
 import { createRegistrant } from '../api/registrants-api';
 import { createWorkshopRegistrant } from '../api/workshopRegistrants-api';
+import { currencyFormat, formatDate } from '../helper';
 
 const Registration = () => {
   const [workshops, setWorkshops] = useState([{}]);
@@ -27,7 +28,6 @@ const Registration = () => {
   const [lastNameError, setLastNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [workshopsError, setWorkshopsError] = useState('');
-  //const [formValid, setFormValid] = useState(true);
   const workshopsSelected = [];
   const history = useHistory();
   let htmlWorkshops = '';
@@ -44,17 +44,17 @@ const Registration = () => {
     })();
   });
 
-  const currencyFormat = (num) => {
-    if (!num) {
-      return '';
-    }
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  };
+  // const currencyFormat = (num) => {
+  //   if (!num) {
+  //     return '';
+  //   }
+  //   return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  // };
 
-  const formatDate = (str) => {
-    var options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(str).toLocaleDateString([], options);
-  };
+  // const formatDate = (str) => {
+  //   var options = { year: 'numeric', month: 'short', day: 'numeric' };
+  //   return new Date(str).toLocaleDateString([], options);
+  // };
 
   const createWorkshopsEntries = () => {
     workshopsSelected.forEach((wsId) => {
