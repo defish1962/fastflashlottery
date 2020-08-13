@@ -16,7 +16,7 @@ const Enroll = (props) => {
   const fname = params.fname;
   const email = params.email;
   const wsId = params.wsId;
-  let env = 'production';
+  let env = 'sandbox';
   const history = useHistory();
   let htmlWorkshop = '';
 
@@ -52,14 +52,11 @@ const Enroll = (props) => {
   };
 
   const createSelectedWorkshopHTML = async (wsId) => {
-    const response = await axios.get(
-      `https://${apiEndpoint}/workshops/${wsId}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await axios.get(`${apiEndpoint}/workshops/${wsId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     let workshop = response.data.items;
     let html = `<ul> * ${workshop.workshopName} 
     ${currencyFormat(workshop.workshopPrice)}

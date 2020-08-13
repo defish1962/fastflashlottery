@@ -12,14 +12,11 @@ export async function getWorkshops() {
 }
 
 export async function getWorkshop(workshopId) {
-  const response = await axios.get(
-    `https://${apiEndpoint}/workshops/${workshopId}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  const response = await axios.get(`${apiEndpoint}/workshops/${workshopId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return response.data.items;
 }
 
