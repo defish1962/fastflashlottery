@@ -28,7 +28,7 @@ const LandingPageSuccess = (props) => {
         {props.history.location.state.email}
       </Header>
       <br />
-      <b>If you do not receive a confirmation email please check your Spam folder, especially if you use GMail.</b>
+      <Header as='h3' textAlign='center'>If you do not receive a confirmation email please check your Spam folder, especially if you use GMail.</Header>
       <p />
       <div className='ui container'>
         The lottery will be held after 6 PM ET Tuesday January 26th (11 PM
