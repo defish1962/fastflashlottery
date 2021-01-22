@@ -1,0 +1,25 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "fflashlottery614e7c40",
+  "functionName": "fflashlottery614e7c40CustomMessage",
+  "resourceName": "fflashlottery614e7c40CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "roleName": "fflashlottery614e7c40CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://www.fastflashworkshops.com/verified",
+  "EMAILSUBJECT": "Fast Flash Workshops Account Registration Confirmation",
+  "EMAILMESSAGE": "Thank you for creating an account with Fast Flash Workshops! Please click on the following link to confirm your email and registration.",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

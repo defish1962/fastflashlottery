@@ -32,12 +32,25 @@ export async function updateWorkshopRegistrant(
 }
 
 export async function deleteWorkshopRegistrant(workshopId, emailAddress) {
-  await Axios.patch(
-    `${apiEndpoint}/wsRegistrants/${workshopId}/${emailAddress}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  try {
+    await Axios.delete(
+      `${apiEndpoint}/wsRegistrants/${workshopId}/${emailAddress}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getDunningList() {
+  const response = await Axios.get(`${apiEndpoint}/dunningList`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data.items;
 }

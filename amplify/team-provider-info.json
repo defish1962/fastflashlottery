@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fflashlottery-dev-161210-authRole",
+      "UnauthRoleArn": "arn:aws:iam::858993435643:role/amplify-fflashlottery-dev-161210-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::858993435643:role/amplify-fflashlottery-dev-161210-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-fflashlottery-dev-161210-deployment",
+      "UnauthRoleName": "amplify-fflashlottery-dev-161210-unauthRole",
+      "StackName": "amplify-fflashlottery-dev-161210",
+      "StackId": "arn:aws:cloudformation:us-west-2:858993435643:stack/amplify-fflashlottery-dev-161210/ffcbff30-22e0-11eb-a3f7-06b6cdf5c503",
+      "AmplifyAppId": "d3a3lra19pzh2m"
+    },
+    "categories": {
+      "function": {
+        "fflashlottery614e7c40CustomMessage": {
+          "REDIRECTURL": "https://www.fastflashworkshops.com/verified",
+          "EMAILSUBJECT": "Fast Flash Workshops Account Registration Confirmation",
+          "EMAILMESSAGE": "Thank you for creating an account with Fast Flash Workshops! Please click on the following link to confirm your email and registration."
+        }
+      },
+      "auth": {
+        "fflashlottery614e7c40": {}
+      }
+    }
+  }
+}

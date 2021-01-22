@@ -27,10 +27,12 @@ const LandingPageSuccess = (props) => {
         <br />
         {props.history.location.state.email}
       </Header>
+      <br />
+      <b>If you do not receive a confirmation email please check your Spam folder, especially if you use GMail.</b>
       <p />
       <div className='ui container'>
-        The lottery will be held after 5 PM MDT Wednesday August 12th (Midnight
-        GMT Thursday August 13th) and winners will be notified soon after. If
+        The lottery will be held after 6 PM ET Tuesday January 26th (11 PM
+        GMT Tuesday January 26th) and winners will be notified soon after. If
         you are not chosen you will automatically be placed in the waitlist
         lottery that will be held to fill any remaining spots once the
         registration window closes.

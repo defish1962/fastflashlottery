@@ -22,11 +22,11 @@ const Registration = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  //const [phoneNumber, setPhoneNumber] = useState('');
   const [emailError, setEmailError] = useState('');
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
-  const [phoneNumberError, setPhoneNumberError] = useState('');
+  // const [phoneNumberError, setPhoneNumberError] = useState('');
   const [workshopsError, setWorkshopsError] = useState('');
   const workshopsSelected = [];
   const history = useHistory();
@@ -100,7 +100,7 @@ const Registration = () => {
         firstName: firstName,
         lastName: lastName,
         emailAddress: emailAddress,
-        phoneNumber: phoneNumber,
+        // phoneNumber: phoneNumber,
       });
 
       //Add workshop entries for registrant
@@ -183,18 +183,18 @@ const Registration = () => {
     }
 
     //Phone Number is long enough
-    if (phoneNumber.length > 0) {
-      if (phoneNumber.length < 11) {
-        setPhoneNumberError(
-          'Phone number must be at least 11 digits. Make sure you include the country code'
-        );
-        formValid = false;
-      } else {
-        setPhoneNumberError('');
-      }
-    } else {
-      setPhoneNumberError('');
-    }
+    // if (phoneNumber.length > 0) {
+    //   if (phoneNumber.length < 11) {
+    //     setPhoneNumberError(
+    //       'Phone number must be at least 11 digits. Make sure you include the country code'
+    //     );
+    //     formValid = false;
+    //   } else {
+    //     setPhoneNumberError('');
+    //   }
+    // } else {
+    //   setPhoneNumberError('');
+    // }
 
     // At least one workshop selected
     if (workshopsSelected.length === 0) {
@@ -290,13 +290,13 @@ const Registration = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </Form.Field> */}
-        <div>
+        {/* <div>
           <span>
             {phoneNumberError ? (
               <Label color='red'>{phoneNumberError}</Label>
             ) : null}
           </span>
-        </div>
+        </div> */}
         <p />
         <div>
           <Header as='h2' textAlign='center'>
