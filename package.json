@@ -2,6 +2,10 @@
   "name": "fflashlottery",
   "version": "0.1.0",
   "private": true,
+  "peerDependencies": {
+    "react": ">=16.14.0",
+    "react-dom": ">=16.14.0"
+ },
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.27",
     "@testing-library/jest-dom": "^4.2.4",

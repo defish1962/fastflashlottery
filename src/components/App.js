@@ -11,6 +11,7 @@ import Decline from "./Decline";
 import DeclineSuccess from "./DeclineSuccess";
 import Signup from "./Signup";
 import Signin from "./Signin";
+import LotteryForm from "./LotteryForm";
 
 const App = () => {
   return (
@@ -24,7 +25,7 @@ const App = () => {
               exact
               component={RegistrationClosed}
             />
-            <Route path="/" exact component={Registration} />
+            <Route path="/" exact component={RegistrationClosed} />
             <Route
               path="/LandingPageSuccess"
               exact
@@ -37,6 +38,8 @@ const App = () => {
             <Route path="/DeclineSuccess" exact component={DeclineSuccess} />
             <Route path="/Signup" component={Signup} />
             <Route path="/Signin" component={Signin} />
+            <Route path="/LotteryForm" component={LotteryForm} />
+            <Route path="/Registration" component={Registration} />
           </div>
         </BrowserRouter>
       </div>

@@ -1,27 +1,26 @@
-import React from 'react';
-import Lottery from './Lottery';
-import { Button } from 'semantic-ui-react';
+import React from "react";
+import Lottery from "./Lottery";
 import {
   updateWorkshopRegistrant,
   deleteWorkshopRegistrant,
   getDunningList,
-} from '../api/workshopRegistrants-api';
-import { sendEmail } from '../api/email-api';
+} from "../api/workshopRegistrants-api";
+import { sendEmail } from "../api/email-api";
 import {
   winnerEmailConfig,
   waitlistEmailConfig,
   dunningNoticeEmailConfig,
-} from '../config';
+} from "../config";
 import {
   getRegistrant,
   getWaitlist,
   updateRegSelected,
-} from '../api/registrants-api';
-import { getWorkshop, getWorkshops } from '../api/workshops-api';
-import { formatDate } from '../helper';
+} from "../api/registrants-api";
+import { getWorkshop, getWorkshops } from "../api/workshops-api";
+import { formatDate } from "../helper";
 
 const RunLottery = () => {
-  const lotteryNumber = '3';
+  const lotteryNumber = "1";
   const lotteryMembers = Lottery(lotteryNumber);
   const lotteryWinners = [];
   let workshops = [];
@@ -54,13 +53,13 @@ const RunLottery = () => {
     for (let i = 0; i <= lotteryWinners.length - 1; i++) {
       let email = lotteryWinners[i].emailAddress;
       await updateWorkshopRegistrant(lotteryNumber, email, {
-        selected: 'Yes',
-        declined: 'No',
-        waitlisted: 'No',
-        paid: 'No',
-        eligible: 'Yes',
-        paymentId: '',
-        payerId: '',
+        selected: "Yes",
+        declined: "No",
+        waitlisted: "No",
+        paid: "No",
+        eligible: "Yes",
+        paymentId: "",
+        payerId: "",
       });
       const fName = await registrantInfo(email);
 
@@ -88,9 +87,9 @@ const RunLottery = () => {
       "<p>Can't Make It?<p>We understand that circumstances can change or that the dates of the workshop may no longer be convenient for you. If you would like to decline this invitation please";
     declineHtml += `<a href=https://www.fastflashworkshops.com/Decline?email=${email}&wsId=${lotteryNumber}&fname=${fname}> Click Here </a>`;
     let html = `Dear ${fname}, great news! Your name was selected for a Fast Flash Workshop!.<p>`;
-    html += 'You have been selected for the following workshop:<p>';
+    html += "You have been selected for the following workshop:<p>";
     html += await workshopInfo(lotteryNumber);
-    html += '<p />You can enroll in this workshop by ';
+    html += "<p />You can enroll in this workshop by ";
     let enrollmentLink = `<a href=https://www.fastflashworkshops.com/Enroll?email=${email}&wsId=${lotteryNumber}&a=${price}&fname=${fname}>Clicking Here </a>`;
     html += enrollmentLink;
     html += winnerEmailConfig.htmlDeadline;
@@ -122,9 +121,9 @@ const RunLottery = () => {
       "<p>Can't Make It?<p>We understand that circumstances can change or that the dates of the workshop may no longer be convenient for you. If you would like to decline this invitation please";
     declineHtml += `<a href=https://www.fastflashworkshops.com/Decline?email=${email}&wsId=${wsId}&fname=${fname}> Click Here </a>`;
     let html = `Dear ${fname}, just a quick reminder that the deadline for registering for the Fast Flash Workshop is in a few hours.<p>`;
-    html += 'You have been selected for the following workshop:<p>';
+    html += "You have been selected for the following workshop:<p>";
     html += await workshopInfo(wsId);
-    html += '<p>You can enroll in this workshop by ';
+    html += "<p>You can enroll in this workshop by ";
     let enrollmentLink = `<a href=https://www.fastflashworkshops.com/Enroll?email=${email}&wsId=${wsId}&a=${price}&fname=${fname}>Clicking Here </a>`;
     html += enrollmentLink;
     html += winnerEmailConfig.htmlDeadline;
@@ -144,19 +143,19 @@ const RunLottery = () => {
   // Get Registrant
   const registrantInfo = async (email) => {
     const response = await getRegistrant(email);
-    console.log('Registrant Data:', response.firstName);
+    console.log("Registrant Data:", response.firstName);
     return response.firstName;
   };
 
   // Get Workshop Info
   const workshopInfo = async (lotteryNumber) => {
     const response = await getWorkshop(lotteryNumber);
-    let workshopInfo = '<p />' + response.workshopName + ' ';
+    let workshopInfo = "<p />" + response.workshopName + " ";
     workshopInfo +=
       formatDate(response.workshopStart) +
-      ' - ' +
+      " - " +
       formatDate(response.workshopEnd) +
-      '<p />';
+      "<p />";
     console.log(response);
     price = response.workshopPrice;
     return workshopInfo;
@@ -190,13 +189,21 @@ const RunLottery = () => {
           ))}
         </ul>
       </div>
-      <Button onClick={runLottery} label='Run Lottery' />
-      <br />
-      <Button onClick={updateWorkshopRegistrants} label='Update Database' />
-      <br />
-      <Button onClick={waitlistEmail} label='Send Email to Waitlist' />
+      <button className="ui primary button" onClick={runLottery}>
+        Run Lottery
+      </button>
       <p />
-      <Button onClick={dunningNotice} label='Send Dunning Notices' />
+      <button className="ui primary button" onClick={updateWorkshopRegistrants}>
+        Update Database
+      </button>
+      <p />
+      <button className="ui primary button" onClick={waitlistEmail}>
+        Send Email to Waitlist
+      </button>
+      <p />
+      <button className="ui primary button" onClick={dunningNotice}>
+        Send Dunning Notices
+      </button>
     </div>
   );
 };

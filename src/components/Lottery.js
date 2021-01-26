@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { apiEndpoint } from '../config';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { apiEndpoint } from "../config";
 
 const Lottery = (workshopId) => {
   const [lottery, setLottery] = useState([{}]);
@@ -11,7 +11,7 @@ const Lottery = (workshopId) => {
         `${apiEndpoint}/wsRegistrants/${workshopId}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
