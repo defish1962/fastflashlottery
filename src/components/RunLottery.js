@@ -20,11 +20,11 @@ import { getWorkshop, getWorkshops } from "../api/workshops-api";
 import { formatDate } from "../helper";
 
 const RunLottery = () => {
-  const lotteryNumber = "1";
+  const lotteryNumber = "6";
   const lotteryMembers = Lottery(lotteryNumber);
   const lotteryWinners = [];
   let workshops = [];
-  let classSize = 1;
+  let classSize = 18;
   let price = 0;
 
   const runLottery = () => {
