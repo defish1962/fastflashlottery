@@ -20,7 +20,7 @@ export const winnerEmailConfig = {
   from: "donotreply@kathy-fish.com",
   subject: "Fast Flash Workshops Lottery Selection Notification",
   htmlDeadline:
-    "<p>You have until 6 PM EST on Thursday January 28 (11 PM GMT Thursday January 28) to confirm registration and submit payment for the course. Any unconfirmed/unpaid registrations at that time will be released and offered to participants on the waitlist through the lottery process<p />",
+    "<p>You have until 6 PM EST on Saturday January 30 (11 PM GMT Saturday January 30) to confirm registration and submit payment for the course. Any unconfirmed/unpaid registrations at that time will be released and offered to participants on the waitlist through the lottery process<p />",
   html:
     "<p />You will receive more information as the starting date of your workshop draws nearer. <p> Thanks so much!<br>Kathy",
   bcc: ["registration@kathy-fish.com"],
