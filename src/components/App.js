@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Heading from "./Heading";
 import Registration from "./Registration";
 import LandingPageSuccess from "./LandingPageSuccess";
+import EmailSuccess from "./EmailSuccess";
 import RunLottery from "./RunLottery";
 import Enroll from "./Enroll";
 import RegistrationClosed from "./RegistrationClosed";
@@ -12,6 +13,7 @@ import DeclineSuccess from "./DeclineSuccess";
 import Signup from "./Signup";
 import Signin from "./Signin";
 import LotteryForm from "./LotteryForm";
+import EmailGroup from "./emailGroup";
 
 const App = () => {
   return (
@@ -31,6 +33,7 @@ const App = () => {
               exact
               component={LandingPageSuccess}
             />
+            <Route path="/EmailSuccess" exact component={EmailSuccess} />
             <Route path="/Enroll" exact component={Enroll} />
             <Route path="/RunLottery" exact component={RunLottery} />
             <Route path="/PaymentSuccess" exact component={PaymentSuccess} />
@@ -40,6 +43,7 @@ const App = () => {
             <Route path="/Signin" component={Signin} />
             <Route path="/LotteryForm" component={LotteryForm} />
             <Route path="/Registration" component={Registration} />
+            <Route path="/EmailGroup" component={EmailGroup} />
           </div>
         </BrowserRouter>
       </div>

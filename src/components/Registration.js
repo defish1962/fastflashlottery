@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { apiEndpoint } from '../config';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import EmailValidator from "email-validator";
+import { apiEndpoint } from "../config";
 import {
   Checkbox,
   Form,
@@ -10,34 +11,36 @@ import {
   Grid,
   Header,
   Container,
-} from 'semantic-ui-react';
-import { emailConfig } from '../config';
-import { sendEmail } from '../api/email-api';
-import { createRegistrant } from '../api/registrants-api';
-import { createWorkshopRegistrant } from '../api/workshopRegistrants-api';
-import { currencyFormat, formatDate } from '../helper';
+} from "semantic-ui-react";
+import { emailConfig } from "../config";
+import { sendEmail } from "../api/email-api";
+import { createRegistrant } from "../api/registrants-api";
+import { createWorkshopRegistrant } from "../api/workshopRegistrants-api";
+import { currencyFormat, formatDate } from "../helper";
 
 const Registration = () => {
   const [workshops, setWorkshops] = useState([{}]);
-  const [emailAddress, setEmailAddress] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [emailAddress, setEmailAddress] = useState("");
+  const [confirmEmailAddress, setConfirmEmailAddress] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   //const [phoneNumber, setPhoneNumber] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [confirmEmailError, setConfirmEmailError] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
   // const [phoneNumberError, setPhoneNumberError] = useState('');
-  const [workshopsError, setWorkshopsError] = useState('');
+  const [workshopsError, setWorkshopsError] = useState("");
   const workshopsSelected = [];
   const history = useHistory();
-  let htmlWorkshops = '';
+  let htmlWorkshops = "";
   let formValid = true;
 
   useState(() => {
     (async () => {
       const response = await axios.get(`${apiEndpoint}/workshops`, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       setWorkshops(response.data.items);
@@ -61,7 +64,7 @@ const Registration = () => {
         return null;
       }
     });
-    return result.join('');
+    return result.join("");
   };
 
   const onWSRegistrantCreate = async (wsId) => {
@@ -69,20 +72,20 @@ const Registration = () => {
       await createWorkshopRegistrant({
         workshopId: wsId,
         emailAddress: emailAddress,
-        paid: 'No',
-        selected: 'No',
-        waitlisted: 'No',
-        declined: 'No',
+        paid: "No",
+        selected: "No",
+        waitlisted: "No",
+        declined: "No",
       });
     } catch {
-      alert('Could not creat Workshop Registrant entries');
+      alert("Could not creat Workshop Registrant entries");
     }
   };
 
   const sendMail = async () => {
     htmlWorkshops = createSelectedWorkshopsList();
     let html = `Dear ${firstName}, this email confirms your enrollment in the Fast Flash Workshops lottery.<p>`;
-    html += 'You have registered for the following workshop lotteries:<p>';
+    html += "You have registered for the following workshop lotteries:<p>";
     html += htmlWorkshops;
     html += emailConfig.html;
     await sendEmail({
@@ -110,14 +113,14 @@ const Registration = () => {
       sendMail();
 
       history.push({
-        pathname: '/LandingPageSuccess',
+        pathname: "/LandingPageSuccess",
         state: {
           email: emailAddress,
           workshops: htmlWorkshops,
         },
       });
     } catch {
-      alert('Oh oh! Looks like something went wrong. Please try again');
+      alert("Oh oh! Looks like something went wrong. Please try again");
     }
   };
 
@@ -134,7 +137,7 @@ const Registration = () => {
     return workshops.map((workshop) => {
       return (
         <Grid.Row key={workshop.workshopId}>
-          <Grid.Column width='5'>
+          <Grid.Column width="5">
             <Checkbox
               label={workshop.workshopName}
               onClick={(e) => {
@@ -142,12 +145,12 @@ const Registration = () => {
               }}
             />
           </Grid.Column>
-          <Grid.Column width='2'>
-            {' '}
+          <Grid.Column width="2">
+            {" "}
             {currencyFormat(workshop.workshopPrice)}
           </Grid.Column>
-          <Grid.Column width='6'>
-            {formatDate(workshop.workshopStart)} -{' '}
+          <Grid.Column width="6">
+            {formatDate(workshop.workshopStart)} -{" "}
             {formatDate(workshop.workshopEnd)}
           </Grid.Column>
         </Grid.Row>
@@ -158,28 +161,41 @@ const Registration = () => {
   const ValidateForm = () => {
     formValid = true;
 
-    // Email address has been entered
-    if (emailAddress === '') {
-      setEmailError('Please provide a valid email address');
+    // Email address has been entered and is correct format
+    if (emailAddress === "") {
+      setEmailError("Please provide a valid email address");
+      formValid = false;
+    }
+    if (!EmailValidator.validate(emailAddress)) {
+      setEmailError("Please provide a valid email address");
       formValid = false;
     } else {
-      setEmailError('');
+      setEmailError("");
+    }
+
+    if (emailAddress !== confirmEmailAddress) {
+      setConfirmEmailError(
+        "Confirmation Email Address does not match email address"
+      );
+      formValid = false;
+    } else {
+      setConfirmEmailError("");
     }
 
     // First Name Entered
     if (firstName.length < 1) {
-      setFirstNameError('Please provide a first name');
+      setFirstNameError("Please provide a first name");
       formValid = false;
     } else {
-      setFirstNameError('');
+      setFirstNameError("");
     }
 
     // Last Name Entered
     if (lastName.length < 1) {
-      setLastNameError('Please provide a last name');
+      setLastNameError("Please provide a last name");
       formValid = false;
     } else {
-      setLastNameError('');
+      setLastNameError("");
     }
 
     //Phone Number is long enough
@@ -198,10 +214,10 @@ const Registration = () => {
 
     // At least one workshop selected
     if (workshopsSelected.length === 0) {
-      setWorkshopsError('Please select at least one workshop');
+      setWorkshopsError("Please select at least one workshop");
       formValid = false;
     } else {
-      setWorkshopsError('');
+      setWorkshopsError("");
     }
 
     AlreadyRegistered();
@@ -212,18 +228,18 @@ const Registration = () => {
       `${apiEndpoint}/registrants/${emailAddress}`,
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
 
     if (emailUsed.data.items === undefined) {
-      setEmailError('');
+      setEmailError("");
       // Register the user
-      console.log('OK to register!');
+      console.log("OK to register!");
     } else {
       setEmailError(
-        'This email address has already been used to register for the lottery'
+        "This email address has already been used to register for the lottery"
       );
       formValid = false;
     }
@@ -235,12 +251,12 @@ const Registration = () => {
   };
 
   return (
-    <div className='ui container'>
+    <div className="ui container">
       <Form onSubmit={ValidateForm}>
         <Form.Field>
           <label>First Name</label>
           <Input
-            placeholder='First Name'
+            placeholder="First Name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -248,34 +264,49 @@ const Registration = () => {
         <div>
           <span>
             {firstNameError ? (
-              <Label color='red'>{firstNameError}</Label>
+              <Label color="red">{firstNameError}</Label>
             ) : null}
           </span>
         </div>
         <Form.Field>
           <label>Last Name</label>
           <input
-            placeholder='Last Name'
+            placeholder="Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Field>
         <div>
           <span>
-            {lastNameError ? <Label color='red'>{lastNameError}</Label> : null}
+            {lastNameError ? <Label color="red">{lastNameError}</Label> : null}
           </span>
         </div>
         <Form.Field>
           <label>Email Address</label>
           <input
-            placeholder='Email Address'
+            placeholder="Email Address"
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
           />
         </Form.Field>
         <div>
           <span>
-            {emailError ? <Label color='red'>{emailError}</Label> : null}
+            {emailError ? <Label color="red">{emailError}</Label> : null}
+          </span>
+        </div>
+        <Form.Field>
+          <label>Confirm Email Address</label>
+          <input
+            placeholder="Confirm Email Address"
+            value={confirmEmailAddress}
+            onChange={(e) => setConfirmEmailAddress(e.target.value)}
+          />
+        </Form.Field>
+        <div>
+          <span>
+            {confirmEmailError ? (
+              <Label color="red">{confirmEmailError}</Label>
+            ) : null}
           </span>
         </div>
         {/* <Form.Field>
@@ -299,12 +330,12 @@ const Registration = () => {
         </div> */}
         <p />
         <div>
-          <Header as='h2' textAlign='center'>
+          <Header as="h2" textAlign="center">
             Workshops
           </Header>
           <div>
             <Container text>
-              <Header as='h3' textAlign='center'>
+              <Header as="h3" textAlign="center">
                 You may enroll in the lottery for as many workshops as you would
                 like. If selected for a workshop your other lottery entries will
                 be removed.
@@ -322,12 +353,12 @@ const Registration = () => {
         <div>
           <span>
             {workshopsError ? (
-              <Label color='red'>{workshopsError}</Label>
+              <Label color="red">{workshopsError}</Label>
             ) : null}
           </span>
         </div>
         <p />
-        <Form.Button color='orange'>Enroll</Form.Button>
+        <Form.Button color="orange">Enroll</Form.Button>
         <p />
       </Form>
     </div>

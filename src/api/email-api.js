@@ -1,5 +1,5 @@
-import { apiEndpoint } from '../config';
-import Axios from 'axios';
+import { apiEndpoint } from "../config.js";
+import Axios from "axios";
 
 export async function sendEmail(newEmail) {
   const response = await Axios.post(
@@ -7,7 +7,7 @@ export async function sendEmail(newEmail) {
     JSON.stringify(newEmail),
     {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     }
   );
