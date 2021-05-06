@@ -49,8 +49,7 @@ const EmailGroup = () => {
       to: materialsPostedConfig.email,
       subject: emailSubject,
       html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-      // bcc: ccEmail,
-      bcc: ["dave@davidefish.com", "mrsfish1960@yahoo.com"],
+      bcc: ccEmail,
     });
   };
 

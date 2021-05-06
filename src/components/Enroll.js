@@ -123,6 +123,7 @@ const Enroll = (props) => {
         <p>$199.00</p>
         <a
           target="_blank"
+          rel="noopener noreferrer"
           href="https://checkout.square.site/buy/MSOLBFMLGGHS4LZ7IERGD2LA?src=embed"
         >
           Buy now
