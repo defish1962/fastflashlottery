@@ -46,6 +46,7 @@ const EmailGroup = () => {
 
     await sendEmail({
       from: materialsPostedConfig.from,
+      replyTo: materialsPostedConfig.replyTo,
       to: materialsPostedConfig.email,
       subject: emailSubject,
       html: draftToHtml(convertToRaw(editorState.getCurrentContent())),

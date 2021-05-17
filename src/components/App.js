@@ -14,6 +14,7 @@ import Signup from "./Signup";
 import Signin from "./Signin";
 import LotteryForm from "./LotteryForm";
 import EmailGroup from "./emailGroup";
+import SeminarRegistration from "./SeminarRegistration";
 
 const App = () => {
   return (
@@ -44,6 +45,10 @@ const App = () => {
             <Route path="/LotteryForm" component={LotteryForm} />
             <Route path="/Registration" component={Registration} />
             <Route path="/EmailGroup" component={EmailGroup} />
+            <Route
+              path="/SeminarRegistration"
+              component={SeminarRegistration}
+            />
           </div>
         </BrowserRouter>
       </div>

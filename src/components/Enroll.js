@@ -72,6 +72,7 @@ const Enroll = (props) => {
     html += registrationCompleteEmailConfig.html;
     await sendEmail({
       from: registrationCompleteEmailConfig.from,
+      replyTo: registrationCompleteEmailConfig.replyTo,
       to: email,
       subject: registrationCompleteEmailConfig.subject,
       html: html,

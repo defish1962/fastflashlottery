@@ -99,6 +99,7 @@ const RunLottery = () => {
 
     await sendEmail({
       from: winnerEmailConfig.from,
+      replyTo: winnerEmailConfig.replyTo,
       to: email,
       subject: winnerEmailConfig.subject,
       html: html,
@@ -133,6 +134,7 @@ const RunLottery = () => {
 
     await sendEmail({
       from: dunningNoticeEmailConfig.from,
+      replyTo: dunningNoticeEmailConfig.replyTo,
       to: email,
       subject: dunningNoticeEmailConfig.subject,
       html: html,
@@ -173,6 +175,7 @@ const RunLottery = () => {
     html += waitlistEmailConfig.html;
     await sendEmail({
       from: waitlistEmailConfig.from,
+      replyTo: waitlistEmailConfig.replyTo,
       to: email,
       subject: waitlistEmailConfig.subject,
       html: html,

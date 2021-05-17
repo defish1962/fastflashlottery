@@ -3,23 +3,12 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import EmailValidator from "email-validator";
 import { apiEndpoint } from "../config";
-import {
-  Checkbox,
-  Form,
-  Input,
-  Label,
-  Grid,
-  Header,
-  Container,
-} from "semantic-ui-react";
+import { Form, Input, Label } from "semantic-ui-react";
 import { emailConfig } from "../config";
 import { sendEmail } from "../api/email-api";
 import { createRegistrant } from "../api/registrants-api";
-import { createWorkshopRegistrant } from "../api/workshopRegistrants-api";
-import { currencyFormat, formatDate } from "../helper";
 
-const Registration = () => {
-  const [workshops, setWorkshops] = useState([{}]);
+const SeminarRegistration = () => {
   var [emailAddress, setEmailAddress] = useState("");
   var [confirmEmailAddress, setConfirmEmailAddress] = useState("");
   var [firstName, setFirstName] = useState("");
@@ -30,68 +19,16 @@ const Registration = () => {
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
-  const [workshopsError, setWorkshopsError] = useState("");
-  const workshopsSelected = [];
   const history = useHistory();
-  let htmlWorkshops = "";
   let formValid = true;
 
-  useState(() => {
-    (async () => {
-      const response = await axios.get(`${apiEndpoint}/workshops`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setWorkshops(response.data.items);
-    })();
-  });
-
-  const createWorkshopsEntries = () => {
-    workshopsSelected.forEach((wsId) => {
-      onWSRegistrantCreate(wsId);
-    });
-  };
-
-  const createSelectedWorkshopsList = () => {
-    let result = workshops.map((workshop) => {
-      if (workshopsSelected.includes(workshop.workshopId)) {
-        return `<ul> * ${workshop.workshopName} 
-          ${currencyFormat(workshop.workshopPrice)}
-          ${formatDate(workshop.workshopStart)} through 
-          ${formatDate(workshop.workshopEnd)}</ul><p>`;
-      } else {
-        return null;
-      }
-    });
-    return result.join("");
-  };
-
-  const onWSRegistrantCreate = async (wsId) => {
-    try {
-      await createWorkshopRegistrant({
-        workshopId: wsId,
-        emailAddress: emailAddress,
-        paid: "No",
-        selected: "No",
-        waitlisted: "No",
-        declined: "No",
-      });
-    } catch {
-      alert("Could not creat Workshop Registrant entries");
-    }
-  };
-
   const sendMail = async () => {
-    htmlWorkshops = createSelectedWorkshopsList();
-    let html = `Dear ${firstName}, this email confirms your enrollment in the Fast Flash Workshops lottery.<p>`;
-    html += "You have registered for the following workshop lotteries:<p>";
-    html += htmlWorkshops;
+    let html = `Dear ${firstName}, this email confirms your registration in the Fast Flash Seminar Series.<p>`;
     html += emailConfig.html;
     await sendEmail({
       from: emailConfig.from,
-      replyTo: emailConfig.replyTo,
       to: emailAddress,
+      replyTo: replyToAddress,
       subject: emailConfig.subject,
       html: html,
       bcc: emailConfig.bcc,
@@ -107,56 +44,18 @@ const Registration = () => {
         phoneNumber: phoneNumber,
       });
 
-      //Add workshop entries for registrant
-      createWorkshopsEntries();
-
       //Send Confirmation email
       sendMail();
 
       history.push({
-        pathname: "/LandingPageSuccess",
+        pathname: "/RegistrationSuccess",
         state: {
           email: emailAddress,
-          workshops: htmlWorkshops,
         },
       });
     } catch {
       alert("Oh oh! Looks like something went wrong. Please try again");
     }
-  };
-
-  const manageWorkshopsList = (wsId) => {
-    let pos = workshopsSelected.indexOf(wsId);
-    if (pos >= 0) {
-      workshopsSelected.splice(pos, 1);
-    } else {
-      workshopsSelected.push(wsId);
-    }
-  };
-
-  const displayWorkshops = () => {
-    return workshops.map((workshop) => {
-      return (
-        <Grid.Row key={workshop.workshopId}>
-          <Grid.Column width="5">
-            <Checkbox
-              label={workshop.workshopName}
-              onClick={(e) => {
-                manageWorkshopsList(workshop.workshopId);
-              }}
-            />
-          </Grid.Column>
-          <Grid.Column width="2">
-            {" "}
-            {currencyFormat(workshop.workshopPrice)}
-          </Grid.Column>
-          <Grid.Column width="6">
-            {formatDate(workshop.workshopStart)} -{" "}
-            {formatDate(workshop.workshopEnd)}
-          </Grid.Column>
-        </Grid.Row>
-      );
-    });
   };
 
   const ValidateForm = () => {
@@ -219,14 +118,7 @@ const Registration = () => {
       setPhoneNumberError("");
     }
 
-    // At least one workshop selected
-    if (workshopsSelected.length === 0) {
-      setWorkshopsError("Please select at least one workshop");
-      formValid = false;
-    } else {
-      setWorkshopsError("");
-    }
-
+    //Make sure they are not already registered with this email address
     AlreadyRegistered();
   };
 
@@ -246,7 +138,7 @@ const Registration = () => {
       console.log("OK to register!");
     } else {
       setEmailError(
-        "This email address has already been used to register for the lottery"
+        "This email address has already been used to register for the seminar series"
       );
       formValid = false;
     }
@@ -320,7 +212,7 @@ const Registration = () => {
           <label>Phone Number (Optional)</label>
           <label>
             Please enter a phone number if you would like to receive text
-            messages about your Fast Flash Workshops
+            messages about the Fast Flash Seminar Series
           </label>
           <input
             placeholder="Phone Number - Country Code First (e.g. 1 for the US or Canada)"
@@ -336,39 +228,10 @@ const Registration = () => {
           </span>
         </div>
         <p />
-        <div>
-          <Header as="h2" textAlign="center">
-            Workshops
-          </Header>
-          <div>
-            <Container text>
-              <Header as="h3" textAlign="center">
-                You may enroll in the lottery for as many workshops as you would
-                like. If selected for a workshop your other lottery entries will
-                be removed.
-              </Header>
-              <p />
-            </Container>
-            <p />
-          </div>
-        </div>
-        <div>
-          <div>
-            <Grid>{displayWorkshops()}</Grid>
-          </div>
-        </div>
-        <div>
-          <span>
-            {workshopsError ? (
-              <Label color="red">{workshopsError}</Label>
-            ) : null}
-          </span>
-        </div>
-        <p />
-        <Form.Button color="orange">Enroll</Form.Button>
+        <Form.Button color="orange">Register</Form.Button>
         <p />
       </Form>
     </div>
   );
 };
-export default Registration;
+export default SeminarRegistration;
