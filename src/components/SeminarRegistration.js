@@ -28,7 +28,7 @@ const SeminarRegistration = () => {
     await sendEmail({
       from: emailConfig.from,
       to: emailAddress,
-      replyTo: replyToAddress,
+      replyTo: emailConfig.replyTo,
       subject: emailConfig.subject,
       html: html,
       bcc: emailConfig.bcc,
